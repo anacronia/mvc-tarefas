@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= tituloAba %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<section class="container">
+    <a href="/" class="btn-voltar">← Voltar</a>
+
+    <section class="form-wrap">
+        <h1><%= tituloPagina %></h1>
+        <form action="/manter-tarefa" method="post">
+            <input type="hidden" name="id" id="id" value="<%= tarefa.id_tarefa %>">
+
+            <section class="form-group">
+                <label for="nome">Tarefa</label>
+                <input type="text" name="nome" id="nome" value="<%= tarefa.nome_tarefa %>" placeholder="Nome da tarefa">
+            </section>
+
+            <section class="form-group">
+                <label for="prazo">Prazo</label>
+                <input type="date" name="prazo" id="prazo" value="<%= tarefa.prazo_tarefa ? moment(tarefa.prazo_tarefa).format('YYYY-MM-DD') : '' %>">
+            </section>
+
+            <section class="form-group">
+                <label for="situacao">Situação</label>
+                <%
+                    let situacao = ["","","","",""];
+                    situacao[tarefa.situacao_tarefa] = "selected";
+                %>
+                <select name="situacao" id="situacao">
+                    <option <%= situacao[0] %> value="0">Cancelada</option>
+                    <option <%= situacao[1] %> value="1">Pendente</option>
+                    <option <%= situacao[2] %> value="2">Iniciada</option>
+                    <option <%= situacao[3] %> value="3">Finalizada</option>
+                    <option <%= situacao[4] %> value="4">Em atraso</option>
+                </select>
+            </section>
+
+            <button type="submit" class="btn-salvar">Salvar</button>
+        </form>
+    </section>
+</section>
+</body>
+</html>

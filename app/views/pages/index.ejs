@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista Tarefas</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<section class="container">
+    
+
+    <button class="btn-primary" onclick="window.location='/nova-tarefa'">+ Nova tarefa</button>
+
+    <table>
+        
+        <tbody>
+            <% if(listaTarefas && listaTarefas.length > 0){
+                let situacao = ["Cancelada","Pendente","Iniciada","Finalizada","Em Atraso"]
+                listaTarefas.forEach((item)=>{ %>
+            <tr>
+                <td>#<%= item.id_tarefa %></td>
+                <td><%= item.nome_tarefa %></td>
+                <td><%= moment(item.prazo_tarefa).format('L') %></td>
+                <td><%= situacao[item.situacao_tarefa] %></td>
+                <td>
+                    <section class="acoes">
+                        <a href="/editar?id=<%= item.id_tarefa %>" class="btn-editar">Editar</a>
+                        <a href="/excluir?id=<%= item.id_tarefa %>" class="btn-excluir" onclick="return confirm('Deseja excluir a tarefa?')">Excluir</a>
+                    </section>
+                </td>
+            </tr>
+            <% }); }else{ %>
+            <tr>
+                <td colspan="5" style="text-align:center; color:#8b90c8; padding:2rem;">Nenhuma tarefa encontrada</td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>
